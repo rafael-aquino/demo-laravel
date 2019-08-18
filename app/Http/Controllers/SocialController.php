@@ -10,15 +10,16 @@ class SocialController extends Controller
 {
     public function redirect($provider)
     {
-     return Socialite::driver($provider)->redirect('/home');
+     return Socialite::driver($provider)->redirect();
     }
 
     public function Callback($provider){
         $userSocial =   Socialite::driver($provider)->stateless()->user();
-        $users       =   User::where(['email' => $userSocial->getEmail()])->first();if($users){
-        Auth::login($users);
-        //return redirect('/');
-        return redirect('/home');
+        $users       =   User::where(['email' => $userSocial->getEmail()])->first();
+        if($users){
+            Auth::login($users);
+            //return redirect('/');
+            return redirect('/home');
         }else{
             $user = User::create([
                 'name'          => $userSocial->getName(),
@@ -26,7 +27,9 @@ class SocialController extends Controller
                 'image'         => $userSocial->getAvatar(),
                 'provider_id'   => $userSocial->getId(),
                 'provider'      => $provider,
-            ]);         
+            ]);
+            $users       =   User::where(['email' => $userSocial->getEmail()])->first();
+            Auth::login($users);         
             //return redirect()->route('home');
             return redirect('/home');
         }
