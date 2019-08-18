@@ -18,7 +18,6 @@ class SocialController extends Controller
         $users       =   User::where(['email' => $userSocial->getEmail()])->first();
         if($users){
             Auth::login($users);
-            //return redirect('/');
             return redirect('/home');
         }else{
             $user = User::create([
@@ -30,24 +29,33 @@ class SocialController extends Controller
             ]);
             $users       =   User::where(['email' => $userSocial->getEmail()])->first();
             Auth::login($users);         
-            //return redirect()->route('home');
             return redirect('/home');
         }
     }
 
     public function TwitterCallback()
     {
-             $twitterSocial =   Socialite::driver('twitter')->user();
-            $users       =   User::where(['email' => $twitterSocial->getEmail()])->first();if($users){
+            $twitterSocial =   Socialite::driver('twitter')->user();
+            $users = User::where(['email' => $twitterSocial->getEmail()])->first();
+            
+            if($users){
+
                 Auth::login($users);
                 return redirect('/home');
-            }else{$user = User::firstOrCreate([
+
+            }else{
+                
+                $user = User::firstOrCreate([
                     'name'          => $twitterSocial->getName(),
                     'email'         => $twitterSocial->getEmail(),
                     'image'         => $twitterSocial->getAvatar(),
                     'provider_id'   => $twitterSocial->getId(),
                     'provider'      => 'twitter',
-                ]);            return redirect()->route('home');
+                ]);            
+                
+                $users = User::where(['email' => $twitterSocial->getEmail()])->first();
+                Auth::login($users);
+                return redirect('/home');
             }
       }
 
