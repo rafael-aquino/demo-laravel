@@ -10,7 +10,7 @@ class SocialController extends Controller
 {
     public function redirect($provider)
     {
-     return Socialite::driver($provider)->redirect();
+     return Socialite::driver($provider)->redirect('/home');
     }
 
     public function Callback($provider){
