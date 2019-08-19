@@ -1,30 +1,23 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('template.default')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ url('/register')}}">Register</a>
-                        @endif
-                    @endauth
+@section('content')
+<div class="container">
+    <div class="row">
+        @foreach ($productos as $producto)
+        <div class="col-sm-6 center-block">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    {{$producto->etiqueta}}
                 </div>
-            @endif
+                <img src="https://picsum.photos/id/100/2500/1656" class="card-img-top responsive" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">$ {{$producto->precio}}</h5>
+                    <p class="card-text">{{$producto->descripcion}}</p>
+                    <a href="/producto/{{$producto->id}}" class="btn btn-primary">Ver</a>
+                </div>
+            </div>
         </div>
-    </body>
-</html>
+        @endforeach
+    </div>
+</div>
+@endsection

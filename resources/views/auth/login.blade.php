@@ -5,20 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <a href="{{ url('/login/google') }}" class="btn btn-google-plus"> Google</a>
+                <a href="{{ url('/login/google') }}" class="btn btn-google-plus"><img style="width:25%; height:auto;" src="/images/g.png" alt="Google Login"></a>
             </div>
-{{--             <div class="card">
-                <a href="{{ url('/login/twitter') }}" class="btn btn-twitter"> Twitter</a>
-            </div> --}}
-            <div class="card">
-                    <form>
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                     <a href="{{ url('/login/facebook') }}" class="btn btn-facebook"> Facebook</a>
-                                     
-                                </div>
-                            </div>
-                            </form>
+            <div class="card">                
+                <a href="{{ url('/login/facebook') }}" class="btn btn-facebook"> <img style="width:27%; height:auto;" src="/images/f.jpg" alt="Facebook Login"></a>
             </div>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>

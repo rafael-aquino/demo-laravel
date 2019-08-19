@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Producto;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -22,7 +24,11 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+        return view('home')->withProductos(Producto::all());
+    }
+
+    public function usuarios(){
+        return view('dashboard.usuarios')->withUsuarios(User::all());
     }
 }
